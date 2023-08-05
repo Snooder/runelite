@@ -1,10 +1,12 @@
-package net.runelite.client.plugins.barrowscounter;
+package net.runelite.client.plugins.barrowscryptcounter;
 
+import com.google.inject.Provides;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ActorDeath;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -39,6 +41,15 @@ public class BarrowsCryptCounterPlugin extends Plugin {
 
     @Inject
     private OverlayManager overlayManager;
+
+    @Inject
+    private BarrowsCryptCounterConfig config;
+
+    @Provides
+    BarrowsCryptCounterConfig getConfig(ConfigManager configManager)
+    {
+        return configManager.getConfig(BarrowsCryptCounterConfig.class);
+    }
 
     @Override
     protected void startUp() throws Exception {

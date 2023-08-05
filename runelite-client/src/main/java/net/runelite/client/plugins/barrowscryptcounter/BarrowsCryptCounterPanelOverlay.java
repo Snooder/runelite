@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.barrowscounter;
+package net.runelite.client.plugins.barrowscryptcounter;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -18,12 +18,14 @@ public class BarrowsCryptCounterPanelOverlay extends Overlay {
     private final PanelComponent panelComponent;
     private static final DecimalFormat REWARD_POTENTIAL_FORMATTER = new DecimalFormat("##0.00%");
     private final Client client;
+    private final BarrowsCryptCounterConfig config;
 
     @Inject
-    private BarrowsCryptCounterPanelOverlay(BarrowsCryptCounterPlugin plugin, Client client) {
+    private BarrowsCryptCounterPanelOverlay(BarrowsCryptCounterPlugin plugin, Client client, BarrowsCryptCounterConfig config) {
         setPosition(OverlayPosition.TOP_LEFT);
         this.plugin = plugin;
         this.client = client;
+        this.config = config;
         panelComponent = new PanelComponent();
         panelComponent.setBorder(new Rectangle(5, 5, 5, 5));
         panelComponent.setBackgroundColor(new Color(0, 0, 0, 150));
@@ -56,9 +58,39 @@ public class BarrowsCryptCounterPanelOverlay extends Overlay {
 
         for (Object npcName : npcList) {
             int kills = killCounts.getOrDefault(npcName, 0);
-            String lineText = npcName + ": " + kills;
+            int targetKills;
+
+            switch (npcName.toString()) {
+                case "Crypt Rat":
+                    targetKills = config.targetCryptRat();
+                    break;
+                case "Bloodworm":
+                    targetKills = config.targetBloodworm();
+                    break;
+                case "Crypt Spider":
+                    targetKills = config.targetCryptSpider();
+                    break;
+                case "Giant Crypt Rat":
+                    targetKills = config.targetGiantCryptRat();
+                    break;
+                case "Skeleton":
+                    targetKills = config.targetSkeleton();
+                    break;
+                case "Giant Crypt Spider":
+                    targetKills = config.targetGiantCryptSpider();
+                    break;
+                default:
+                    targetKills = 0;
+                    break;
+            }
+
+            // Change color based on whether target has been reached
+            Color textColor = (kills >= targetKills) ? Color.GREEN : Color.WHITE;
+
+            String lineText = npcName + ":" + kills + " / " + targetKills;
             panelComponent.getChildren().add(LineComponent.builder()
                     .left(lineText)
+                    .leftColor(textColor)
                     .build());
         }
 

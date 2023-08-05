@@ -1,15 +1,25 @@
-package net.runelite.client.plugins.barrowscounter;
+package net.runelite.client.plugins.barrowscryptcounter;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("barrowstracker")
+@ConfigGroup("barrowscryptcounter")
 public interface BarrowsCryptCounterConfig extends Config
 {
     @ConfigItem(
+            keyName = "label",
+            name = "Target Kill Counts",
+            description = "",
+            position = 0
+    )
+    default String label() {
+        return null;
+    }
+
+    @ConfigItem(
             keyName = "targetCryptRat",
-            name = "Target number for Crypt Rat",
+            name = "Crypt Rat",
             description = "Set the target number for Crypt Rat kills"
     )
     default int targetCryptRat() {
@@ -18,7 +28,7 @@ public interface BarrowsCryptCounterConfig extends Config
 
     @ConfigItem(
             keyName = "targetBloodworm",
-            name = "Target number for Bloodworm",
+            name = "Bloodworm",
             description = "Set the target number for Bloodworm kills"
     )
     default int targetBloodworm() {
@@ -27,7 +37,7 @@ public interface BarrowsCryptCounterConfig extends Config
 
     @ConfigItem(
             keyName = "targetCryptSpider",
-            name = "Target number for Crypt Spider",
+            name = "Crypt Spider",
             description = "Set the target number for Crypt Spider kills"
     )
     default int targetCryptSpider() {
@@ -36,7 +46,7 @@ public interface BarrowsCryptCounterConfig extends Config
 
     @ConfigItem(
             keyName = "targetGiantCryptRat",
-            name = "Target number for Giant Crypt Rat",
+            name = "Giant Crypt Rat",
             description = "Set the target number for Giant Crypt Rat kills"
     )
     default int targetGiantCryptRat() {
@@ -45,7 +55,7 @@ public interface BarrowsCryptCounterConfig extends Config
 
     @ConfigItem(
             keyName = "targetSkeleton",
-            name = "Target number for Skeleton",
+            name = "Skeleton",
             description = "Set the target number for Skeleton kills"
     )
     default int targetSkeleton() {
@@ -54,7 +64,7 @@ public interface BarrowsCryptCounterConfig extends Config
 
     @ConfigItem(
             keyName = "targetGiantCryptSpider",
-            name = "Target number for Giant Crypt Spider",
+            name = "Giant Crypt Spider",
             description = "Set the target number for Giant Crypt Spider kills"
     )
     default int targetGiantCryptSpider() {

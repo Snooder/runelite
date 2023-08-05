@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.barrowscounter;
+package net.runelite.client.plugins.barrowscryptcounter;
 
 import java.awt.Color;
 import java.awt.Dimension;
